@@ -5,6 +5,7 @@ interface CurrencyContextType {
   baseCurrency: string;
   targetCurrency: string;
   convertedAmount: number | null;
+  exchangeRate: number | null;
   amount: string;
   currencyList: string[];
   setAmount: (value: string) => void;
@@ -22,6 +23,7 @@ export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
   const [targetCurrency, setTargetCurrency] = useState<string>('INR');
   const [amount, setAmount] = useState<string>('1');
   const [convertedAmount, setConvertedAmount] = useState<number | null>(null);
+  const [exchangeRate, setExchangeRate] = useState<number | null>(null);
   const [currencyList, setCurrencyList] = useState<string[]>([]);
 
   const fetchCurrencies = async () => {
@@ -42,9 +44,11 @@ export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
     try {
       const response = await axios.get(`${BASE_URL}/latest?amount=${amount}&from=${baseCurrency}&to=${targetCurrency}`);
       setConvertedAmount(response.data.rates[targetCurrency]);
+      setExchangeRate(response.data.rates[targetCurrency] / parseFloat(amount));
     } catch (error) {
       console.error('Failed to convert currency:', error);
       setConvertedAmount(null);
+      setExchangeRate(null);
     }
   };
 
@@ -54,6 +58,7 @@ export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
         baseCurrency,
         targetCurrency,
         convertedAmount,
+        exchangeRate,
         amount,
         currencyList,
         setAmount,

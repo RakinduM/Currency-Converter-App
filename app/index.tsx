@@ -11,6 +11,7 @@ const CurrencyConverterScreen = () => {
     targetCurrency,
     convertedAmount,
     amount,
+    exchangeRate,
     currencyList,
     setAmount,
     setBaseCurrency,
@@ -79,14 +80,14 @@ const CurrencyConverterScreen = () => {
           ))}
         </Picker>
       </View>
-
+      <Text className="text-2xl font-bold text-green-600 mb-6">Exchange Rate: {exchangeRate}</Text>
       <Text className="text-2xl font-bold text-green-600 mb-6">{convertedAmount}</Text>
 
       <TouchableOpacity
         onPress={handleConvert}
-        className="bg-blue-500 p-3 rounded w-full"
+        className="bg-blue-500 py-4 rounded-lg items-center w-full"
       >
-        <Text className="text-center text-white font-semibold">Convert</Text>
+        <Text className="text-center text-white font-bold">Convert</Text>
       </TouchableOpacity>
     </View>
   );
