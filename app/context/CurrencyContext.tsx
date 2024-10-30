@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import axios from 'axios';
 
 interface CurrencyContextType {
@@ -6,6 +6,7 @@ interface CurrencyContextType {
   targetCurrency: string;
   convertedAmount: number | null;
   amount: string;
+  currencyList: string[];
   setAmount: (value: string) => void;
   setBaseCurrency: (currency: string) => void;
   setTargetCurrency: (currency: string) => void;
@@ -21,6 +22,20 @@ export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
   const [targetCurrency, setTargetCurrency] = useState<string>('INR');
   const [amount, setAmount] = useState<string>('1');
   const [convertedAmount, setConvertedAmount] = useState<number | null>(null);
+  const [currencyList, setCurrencyList] = useState<string[]>([]);
+
+  const fetchCurrencies = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/currencies`);
+      setCurrencyList(Object.keys(response.data));
+    } catch (error) {
+      console.error("Error fetching currencies:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCurrencies();
+  }, []);
 
   const convertCurrency = async () => {
     if (!amount || !baseCurrency || !targetCurrency) return;
@@ -40,6 +55,7 @@ export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
         targetCurrency,
         convertedAmount,
         amount,
+        currencyList,
         setAmount,
         setBaseCurrency,
         setTargetCurrency,

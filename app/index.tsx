@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, ActivityIndicator, Image } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useCurrency } from '@/app/context/CurrencyContext';
 import { FontAwesome } from '@expo/vector-icons';
+import currencyImg from '@/assets/images/currencyB.png'
 
 const CurrencyConverterScreen = () => {
   const {
@@ -10,25 +11,42 @@ const CurrencyConverterScreen = () => {
     targetCurrency,
     convertedAmount,
     amount,
+    currencyList,
     setAmount,
     setBaseCurrency,
     setTargetCurrency,
     convertCurrency,
   } = useCurrency();
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    convertCurrency();
-  }, [amount, baseCurrency, targetCurrency]);
+    if (currencyList.length > 0) {
+      setLoading(false); // Set loading to false once currency list is loaded
+    }
+  }, [currencyList]);
+
+  const handleConvert = async () => {
+    setLoading(true);
+    await convertCurrency();
+    setLoading(false);
+  };
+
+  if (loading) {
+    return (
+      <View className="flex-1 items-center justify-center bg-white">
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
 
   return (
     <View className="flex-1 items-center justify-center bg-white p-6">
       <Text className="text-2xl font-bold text-gray-800 mb-6">Currency Converter</Text>
-
-      {/* <Image
-        source={require('../assets/currency-exchange-icon.png')} // Replace with your icon path
-        style={{ width: 100, height: 100, marginBottom: 16 }}
-      /> */}
-
+      <Image
+        source={currencyImg} // Replace with your icon path
+        style={{ width: 300, height: 300, marginBottom: 16 }}
+      />
       <Text className="self-start text-gray-600 mb-2">Amount</Text>
       <TextInput
         placeholder="Enter amount"
@@ -44,9 +62,9 @@ const CurrencyConverterScreen = () => {
           style={{ width: '40%' }}
           onValueChange={(value) => setBaseCurrency(value)}
         >
-          <Picker.Item label="USD" value="USD" />
-          <Picker.Item label="EUR" value="EUR" />
-          {/* Add more currency options as needed */}
+          {currencyList.map((currency) => (
+            <Picker.Item key={currency} label={currency} value={currency} />
+          ))}
         </Picker>
 
         <FontAwesome name="exchange" size={24} color="gray" />
@@ -56,17 +74,16 @@ const CurrencyConverterScreen = () => {
           style={{ width: '40%' }}
           onValueChange={(value) => setTargetCurrency(value)}
         >
-          <Picker.Item label="PKR" value="PKR" />
-          <Picker.Item label="INR" value="INR" />
-          {/* Add more currency options as needed */}
+          {currencyList.map((currency) => (
+            <Picker.Item key={currency} label={currency} value={currency} />
+          ))}
         </Picker>
       </View>
 
-      {/* <Text className="text-gray-600 text-lg mb-2">Rate {conversionRate}</Text> */}
       <Text className="text-2xl font-bold text-green-600 mb-6">{convertedAmount}</Text>
 
       <TouchableOpacity
-        onPress={convertCurrency}
+        onPress={handleConvert}
         className="bg-blue-500 p-3 rounded w-full"
       >
         <Text className="text-center text-white font-semibold">Convert</Text>
