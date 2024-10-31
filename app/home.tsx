@@ -11,8 +11,6 @@ import {
 import { Picker } from "@react-native-picker/picker";
 import { useCurrency } from "@/app/context/CurrencyContext";
 import { FontAwesome, Fontisto } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
-import { useColorScheme } from "nativewind";
 import currencyImg from "@/assets/images/currencyB.png";
 import { StatusBar } from "expo-status-bar";
 import { useTheme } from "./context/ThemeContext";
@@ -81,12 +79,11 @@ const CurrencyConverterScreen = () => {
             )}
           </TouchableOpacity>
         </View>
-        <Image
-          source={currencyImg}
-          style={{ width: 300, height: 300 }}
-        />
+        <Image source={currencyImg} style={{ width: 300, height: 300 }} />
 
-        <Text className={`self-start mb-2 font-semibold text-gray-600 dark:text-gray-300`}>
+        <Text
+          className={`self-start mb-2 font-semibold text-gray-600 dark:text-gray-300`}
+        >
           Amount
         </Text>
         <TextInput
@@ -104,7 +101,12 @@ const CurrencyConverterScreen = () => {
             onValueChange={(value) => setBaseCurrency(value)}
           >
             {currencyList.map((currency) => (
-              <Picker.Item key={currency} label={currency} value={currency} color={isDarkMode ? "white" : "black"}/>
+              <Picker.Item
+                key={currency}
+                label={currency}
+                value={currency}
+                color={isDarkMode ? "white" : "black"}
+              />
             ))}
           </Picker>
 
@@ -120,7 +122,12 @@ const CurrencyConverterScreen = () => {
             onValueChange={(value) => setTargetCurrency(value)}
           >
             {currencyList.map((currency) => (
-              <Picker.Item key={currency} label={currency} value={currency} color={isDarkMode ? "white" : "black"}/>
+              <Picker.Item
+                key={currency}
+                label={currency}
+                value={currency}
+                color={isDarkMode ? "white" : "black"}
+              />
             ))}
           </Picker>
         </View>
@@ -136,7 +143,9 @@ const CurrencyConverterScreen = () => {
               isDarkMode ? "text-green-400" : "text-green-600"
             }`}
           >
-            {`1 ${baseCurrency} = ${exchangeRate?.toFixed(2)} ${targetCurrency}`}
+            {`1 ${baseCurrency} = ${exchangeRate?.toFixed(
+              2
+            )} ${targetCurrency}`}
           </Text>
         </View>
 

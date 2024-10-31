@@ -1,6 +1,47 @@
-# Welcome to your Expo app 👋
+# Currency Converter App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Welcome to the **Currency Converter App**, a React Native application built with **Expo**. This app allows users to convert currencies easily using the [Frankfurter API](https://www.frankfurter.app/).
+
+## Features
+
+- **Real-Time Currency Conversion**: Convert between multiple currencies using live exchange rates.
+- **User-Friendly Interface**: Intuitive design with a simple and clean layout.
+- **Responsive Design**: Optimized for both mobile and tablet devices using NativeWind for styling.
+- **Dark Mode Support**: Toggle between light and dark themes for better usability in different environments.
+- **Customizable Currency List**: Select from a wide range of currencies available through the Frankfurter API.
+
+## Tech Stack
+
+- **React Native**: A framework for building native apps using React.
+- **Expo**: A framework and platform for universal React applications.
+- **NativeWind**: Utility-first CSS framework for React Native.
+- **Expo Router**: File-based routing for better organization of navigation.
+- **Frankfurter API**: Provides exchange rates and currency conversion.
+
+### Prerequisites
+
+Make sure you have Node.js installed on your machine. You can download it from [nodejs.org](https://nodejs.org/).
+
+### Installation
+
+1. **Clone the repository**
+
+   Use the following command to clone the repository to your local machine:
+
+        git clone https://github.com/RakinduM/Currency-Converter-App.git
+
+2. Navigate to the project directory:
+
+        cd Currency-Converter-App
+
+3. Install the dependencies:
+
+         npm i
+
+### Running Locally
+Once the dependencies are installed, you can run the application locally using:
+
+     npm expo start
 
 ## Get started
 
@@ -25,16 +66,6 @@ In the output, you'll find options to open the app in a
 
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
 ## Learn more
 
 To learn more about developing your project with Expo, look at the following resources:
@@ -42,9 +73,4 @@ To learn more about developing your project with Expo, look at the following res
 - [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
 - [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
 
-## Join the community
 
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.

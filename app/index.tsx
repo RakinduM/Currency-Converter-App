@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { MotiView } from "moti";
 import { useTheme } from "./context/ThemeContext";
 import { FontAwesome, Fontisto } from "@expo/vector-icons";
@@ -18,10 +18,10 @@ const OnboardingScreen = () => {
         className="absolute top-20 right-6"
       >
         {isDarkMode ? (
-              <Fontisto name="sun" size={24} color="green" />
-            ) : (
-              <FontAwesome name="moon-o" size={24} color="gray" />
-            )}
+          <Fontisto name="sun" size={24} color="green" />
+        ) : (
+          <FontAwesome name="moon-o" size={24} color="gray" />
+        )}
       </TouchableOpacity>
 
       {/* Animated Currency Icons */}
