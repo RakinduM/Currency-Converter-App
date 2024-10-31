@@ -8,7 +8,6 @@ Welcome to the **Currency Converter App**, a React Native application built with
 - **User-Friendly Interface**: Intuitive design with a simple and clean layout.
 - **Responsive Design**: Optimized for both mobile and tablet devices using NativeWind for styling.
 - **Dark Mode Support**: Toggle between light and dark themes for better usability in different environments.
-- **Customizable Currency List**: Select from a wide range of currencies available through the Frankfurter API.
 
 ## Tech Stack
 
@@ -24,21 +23,22 @@ Make sure you have Node.js installed on your machine. You can download it from [
 
 ### Installation
 
-1. **Clone the repository**
+1.  **Clone the repository**
 
-   Use the following command to clone the repository to your local machine:
+    Use the following command to clone the repository to your local machine:
 
-        git clone https://github.com/RakinduM/Currency-Converter-App.git
+         git clone https://github.com/RakinduM/Currency-Converter-App.git
 
-2. Navigate to the project directory:
+2.  Navigate to the project directory:
 
         cd Currency-Converter-App
 
-3. Install the dependencies:
+3.  Install the dependencies:
 
          npm i
 
 ### Running Locally
+
 Once the dependencies are installed, you can run the application locally using:
 
      npm expo start
@@ -50,13 +50,11 @@ In the output, you'll find options to open the app in a
 - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
 - [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
 ## Learn more
 
-To learn more about developing your project with Expo, look at the following resources:
+To learn more about the project, look at the following resources:
 
 - [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
 - [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-
+- [NativeWind documentation](https://www.nativewind.dev/): Learn the fundamentals of styling React Native applications using utility classes for a faster and more efficient development process.
+- [Frankfurter documentation](https://frankfurter.dev/): Access detailed information on the Frankfurter API, including how to use it for currency conversion and real-time exchange rate data.
