@@ -16,6 +16,7 @@ Welcome to the **Currency Converter App**, a React Native application built with
 - **NativeWind**: Utility-first CSS framework for React Native.
 - **Expo Router**: File-based routing for better organization of navigation.
 - **Frankfurter API**: Provides exchange rates and currency conversion.
+- **Axios**: A promise-based HTTP client for making requests to APIs.
 
 ### Prerequisites
 
