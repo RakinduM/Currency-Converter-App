@@ -9,11 +9,11 @@ import {
   Image,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import { useCurrency } from "@/app/context/CurrencyContext";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { FontAwesome, Fontisto } from "@expo/vector-icons";
 import currencyImg from "@/assets/images/currencyB.png";
 import { StatusBar } from "expo-status-bar";
-import { useTheme } from "./context/ThemeContext";
+import { useTheme } from "@/contexts/ThemeContext";
 import CustomButton from "@/components/CustomButton";
 
 const CurrencyConverterScreen = () => {
@@ -143,9 +143,9 @@ const CurrencyConverterScreen = () => {
               isDarkMode ? "text-green-400" : "text-green-600"
             }`}
           >
-            {`1 ${baseCurrency} = ${exchangeRate?.toFixed(
-              2
-            )} ${targetCurrency}`}
+            {exchangeRate
+              ? `1 ${baseCurrency} = ${exchangeRate?.toFixed(2)} ${targetCurrency}`
+              : "Select currencies to see the exchange rate"}
           </Text>
         </View>
 
@@ -160,7 +160,7 @@ const CurrencyConverterScreen = () => {
               isDarkMode ? "text-green-400" : "text-green-600"
             }`}
           >
-            Converted Amount: {convertedAmount}
+            Converted Amount: {convertedAmount?.toFixed(2) || "0"}
           </Text>
         </View>
 

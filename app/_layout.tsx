@@ -1,8 +1,8 @@
 import React from "react";
 import { Stack } from "expo-router";
 import "@/global.css";
-import { CurrencyProvider } from "./context/CurrencyContext";
-import { ThemeProvider } from "./context/ThemeContext";
+import { CurrencyProvider } from "@/contexts/CurrencyContext";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 
 const RootLayout = () => {
   return (

@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import { MotiView } from "moti";
-import { useTheme } from "./context/ThemeContext";
+import { useTheme } from "@/contexts/ThemeContext";
 import { FontAwesome, Fontisto } from "@expo/vector-icons";
 import CustomButton from "@/components/CustomButton";
 
