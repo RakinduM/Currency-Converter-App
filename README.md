@@ -41,7 +41,7 @@ Make sure you have Node.js installed on your machine. You can download it from [
 
 Once the dependencies are installed, you can run the application locally using:
 
-     npm expo start
+     npx expo start
 
 In the output, you'll find options to open the app in a
 
