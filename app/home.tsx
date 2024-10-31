@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  SafeAreaView,
   View,
   Text,
   TextInput,
@@ -9,9 +10,13 @@ import {
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { useCurrency } from "@/app/context/CurrencyContext";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Fontisto } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import { useColorScheme } from "nativewind";
 import currencyImg from "@/assets/images/currencyB.png";
+import { StatusBar } from "expo-status-bar";
+import { useTheme } from "./context/ThemeContext";
+import CustomButton from "@/components/CustomButton";
 
 const CurrencyConverterScreen = () => {
   const {
@@ -28,11 +33,11 @@ const CurrencyConverterScreen = () => {
   } = useCurrency();
 
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
+  const { isDarkMode, toggleTheme } = useTheme();
 
   useEffect(() => {
     if (currencyList.length > 0) {
-      setLoading(false); // Set loading to false once currency list is loaded
+      setLoading(false);
     }
   }, [currencyList]);
 
@@ -43,7 +48,6 @@ const CurrencyConverterScreen = () => {
   };
 
   const handleAmountChange = (value: string) => {
-    // Use a regex to allow only numeric input (including decimal point)
     if (/^\d*\.?\d*$/.test(value)) {
       setAmount(value);
     }
@@ -51,67 +55,109 @@ const CurrencyConverterScreen = () => {
 
   if (loading) {
     return (
-      <View className="flex-1 items-center justify-center bg-white">
+      <View className="flex-1 items-center justify-center bg-white dark:bg-black">
         <ActivityIndicator size="large" color="#0000ff" />
       </View>
     );
   }
 
   return (
-    <View className="flex-1 items-center justify-center bg-white p-6">
-      <Text className="text-2xl font-bold text-gray-800 mb-6">
-        Currency Converter
-      </Text>
-      <Image
-        source={currencyImg} // Replace with your icon path
-        style={{ width: 300, height: 300 }}
-      />
-      <Text className="self-start text-gray-600 mb-2">Amount</Text>
-      <TextInput
-        placeholder="Enter amount"
-        keyboardType="numeric"
-        value={amount}
-        onChangeText={handleAmountChange}
-        className="border border-gray-300 w-full p-3 mb-4 rounded text-center"
-      />
+    <SafeAreaView className={`flex-1 bg-white dark:bg-[#121212]`}>
+      <StatusBar style={isDarkMode ? "light" : "dark"} />
 
-      <View className="flex-row items-center justify-between w-full mb-4">
-        <Picker
-          selectedValue={baseCurrency}
-          style={{ width: "40%" }}
-          onValueChange={(value) => setBaseCurrency(value)}
+      <View className="flex-1 items-center justify-center p-6">
+        <View className="relative w-full mb-6 mt-4">
+          <Text className={`text-2xl font-bold text-gray-800 dark:text-white`}>
+            Currency Converter
+          </Text>
+          <TouchableOpacity
+            onPress={toggleTheme}
+            className="absolute top-0 right-0 mt-2 mr-2"
+          >
+            {isDarkMode ? (
+              <Fontisto name="sun" size={24} color="green" />
+            ) : (
+              <FontAwesome name="moon-o" size={24} color="gray" />
+            )}
+          </TouchableOpacity>
+        </View>
+        <Image
+          source={currencyImg}
+          style={{ width: 300, height: 300 }}
+        />
+
+        <Text className={`self-start mb-2 font-semibold text-gray-600 dark:text-gray-300`}>
+          Amount
+        </Text>
+        <TextInput
+          placeholder="Enter amount"
+          keyboardType="numeric"
+          value={amount}
+          onChangeText={handleAmountChange}
+          className={`border w-full p-3 mb-4 rounded text-center border-gray-300 text-black bg-white dark:border-gray-600 dark:text-white dark:bg-gray-800 `}
+        />
+
+        <View className="flex-row items-center justify-between w-full mb-4">
+          <Picker
+            selectedValue={baseCurrency}
+            style={{ width: "40%", color: isDarkMode ? "white" : "black" }}
+            onValueChange={(value) => setBaseCurrency(value)}
+          >
+            {currencyList.map((currency) => (
+              <Picker.Item key={currency} label={currency} value={currency} color={isDarkMode ? "white" : "black"}/>
+            ))}
+          </Picker>
+
+          <FontAwesome
+            name="exchange"
+            size={24}
+            color={isDarkMode ? "white" : "gray"}
+          />
+
+          <Picker
+            selectedValue={targetCurrency}
+            style={{ width: "40%", color: isDarkMode ? "white" : "black" }}
+            onValueChange={(value) => setTargetCurrency(value)}
+          >
+            {currencyList.map((currency) => (
+              <Picker.Item key={currency} label={currency} value={currency} color={isDarkMode ? "white" : "black"}/>
+            ))}
+          </Picker>
+        </View>
+
+        {/* Exchange Rate Card */}
+        <View
+          className={`w-full p-4 mb-3 rounded-lg ${
+            isDarkMode ? "bg-gray-800" : "bg-gray-200"
+          }`}
         >
-          {currencyList.map((currency) => (
-            <Picker.Item key={currency} label={currency} value={currency} />
-          ))}
-        </Picker>
+          <Text
+            className={`text-lg font-medium text-center ${
+              isDarkMode ? "text-green-400" : "text-green-600"
+            }`}
+          >
+            {`1 ${baseCurrency} = ${exchangeRate?.toFixed(2)} ${targetCurrency}`}
+          </Text>
+        </View>
 
-        <FontAwesome name="exchange" size={24} color="gray" />
-
-        <Picker
-          selectedValue={targetCurrency}
-          style={{ width: "40%" }}
-          onValueChange={(value) => setTargetCurrency(value)}
+        {/* Converted Amount Card */}
+        <View
+          className={`w-full p-4 mb-4 rounded-lg ${
+            isDarkMode ? "bg-gray-800" : "bg-gray-200"
+          }`}
         >
-          {currencyList.map((currency) => (
-            <Picker.Item key={currency} label={currency} value={currency} />
-          ))}
-        </Picker>
+          <Text
+            className={`text-lg font-medium text-center ${
+              isDarkMode ? "text-green-400" : "text-green-600"
+            }`}
+          >
+            Converted Amount: {convertedAmount}
+          </Text>
+        </View>
+
+        <CustomButton title="Convert" onPress={handleConvert} />
       </View>
-      <Text className="text-2xl font-bold text-green-600 mb-6">
-        Exchange Rate: {exchangeRate?.toFixed(2)}
-      </Text>
-      <Text className="text-2xl font-bold text-green-600 mb-6">
-        {convertedAmount}
-      </Text>
-
-      <TouchableOpacity
-        onPress={handleConvert}
-        className="bg-blue-500 py-4 rounded-lg items-center w-full"
-      >
-        <Text className="text-center text-white font-bold">Convert</Text>
-      </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 
