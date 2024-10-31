@@ -20,7 +20,7 @@ const OnboardingScreen = () => {
         {isDarkMode ? (
           <Fontisto name="sun" size={24} color="green" />
         ) : (
-          <FontAwesome name="moon-o" size={24} color="gray" />
+          <FontAwesome name="moon-o" size={24} color="black" />
         )}
       </TouchableOpacity>
 
